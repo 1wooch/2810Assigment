@@ -68,9 +68,9 @@ class basic_function(object):
                 self.month_result[self.range_date_date_format[i]]=count
             
         test_oop=draw_graph(self.month_result)
-        bar_graph=test_oop.draw_bar_graph()
-        line_graph=test_oop.draw_line_graph()
-        
+        #bar_graph=test_oop.draw_bar_graph()
+        #line_graph=test_oop.draw_line_graph()
+        double_line_graph=test_oop.draw_2_line_graph()
 
         
         
