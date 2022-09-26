@@ -11,11 +11,14 @@ import sys
 
 
 class draw_graph(object):
-    def __init__(self,result,range_date):
-        self.result=result
-        self.range_date = range_date
+    def __init__(self,month_result):
+        self.month_result=month_result
+        
         
     
     def draw_bar_graph(self):
-        
-        return self.result,self.range_date
+        print(type(self.month_result))
+        plt.bar(range(len(self.month_result)),list(self.month_result.values()),align='center')
+        plt.xticks(range(len(self.month_result)),list(self.month_result.keys()))
+        plt.show()
+

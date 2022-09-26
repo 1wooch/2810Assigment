@@ -56,41 +56,25 @@ class basic_function(object):
 
         data=pd.DataFrame(data)
         #print(data[data["OFFENCE_MONTH"]==self.range_date_date_format[0]].count())
-
-        for i in range(len(self.range_date_date_format)):
-            month=self.range_date_date_format[i]
-            count=pd.DataFrame(data[data['OFFENCE_MONTH']==self.range_date_date_format[i]]).count()['OFFENCE_MONTH']
-            self.month_result[self.range_date_date_format[i]]=count
-        print('normal range:',self.month_result)  
-        for i in range(len(self.range_date_date_format)):
-            month=self.range_date_date_format[i]
-            count=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')]).count()['OFFENCE_MONTH']
-            self.month_result[self.range_date_date_format[i]]=count
-        print('schoolzone range:',self.month_result)  
-
-
-        test_oop=draw_graph(result,self.range_date)
+        if self.school_zone_bool==True:
+            for i in range(len(self.range_date_date_format)):
+                month=self.range_date_date_format[i]
+                count=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')]).count()['OFFENCE_MONTH']
+                self.month_result[self.range_date_date_format[i]]=count
+        else:
+            for i in range(len(self.range_date_date_format)):
+                month=self.range_date_date_format[i]
+                count=pd.DataFrame(data[data['OFFENCE_MONTH']==self.range_date_date_format[i]]).count()['OFFENCE_MONTH']
+                self.month_result[self.range_date_date_format[i]]=count
+            
+        test_oop=draw_graph(self.month_result)
         test_result=test_oop.draw_bar_graph()
 
-        # #use for loop get each month and get count and store as dictionary
-        # for x in test.index:
-        #     count=0
-        #     for i in range(len(self.range_date_date_format)):
-        #         #print(self.range_date_date_format[i])
-        #         if (test.loc[x,"OFFENCE_MONTH"]==self.range_date_date_format[i]):
-        #             count+=1
-        #     self.month_result[str(self.range_date_date_format[i])]=count
-        # print(self.month_result)
         
-        return self.range_date,result
-      
+        
 
-start=basic_function('2012','01','2013','02',True)
+start=basic_function('2012','01','2013','02',False)
 test = start.date_and_school()
-
 print (type(test))
-#print(test[0]) #-> self.range_date
-#print(test[1]) #-> result
-
 
 #https://www.entechin.com/how-to-import-a-class-from-another-file-in-python/ -> how to use other file class in OOP
