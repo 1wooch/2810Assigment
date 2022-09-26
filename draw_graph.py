@@ -17,8 +17,14 @@ class draw_graph(object):
         
     
     def draw_bar_graph(self):
-        print(type(self.month_result))
-        plt.bar(range(len(self.month_result)),list(self.month_result.values()),align='center')
+        plt.figure(figsize=(20,3))
+        #width:20,height:3
+        plt.bar(range(len(self.month_result)),list(self.month_result.values()),align='center',width=0.3)
+        #set width.
         plt.xticks(range(len(self.month_result)),list(self.month_result.keys()))
         plt.show()
+    def draw_line_graph(self):
+        print(self.month_result.keys())
+        print(self.month_result.values())
+
 
