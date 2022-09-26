@@ -40,10 +40,22 @@ class draw_graph(object):
         plt.plot(labels,first_data,linestyle='-',marker='o')
         plt.plot(labels,first_data,linestyle='-',marker='o')
         plt.show()
-    def draw_pie_chart(self,test_value):
-        data=np.array(list(self.month_result.values()))
-        #print(data)
-        labels=np.array(list(self.month_result.keys()))
+    def draw_pie_chart(self):
+        self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
+
+        self.month_result=self.month_result[0:5]#list
+
+        label_list=[]
+        data_list=[]
+        for i in range(len(self.month_result)):
+            print(self.month_result[i])
+            label_list.append(self.month_result[i][0])
+            data_list.append(self.month_result[i][1])
+
+        data=np.array(data_list)
+        labels=np.array(label_list)
+        plt.pie(data_list,labels=label_list)
+        plt.show()
 
 
 

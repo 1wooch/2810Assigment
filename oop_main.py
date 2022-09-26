@@ -67,15 +67,13 @@ class basic_function(object):
                 count=pd.DataFrame(data[data['OFFENCE_MONTH']==self.range_date_date_format[i]]).count()['OFFENCE_MONTH']
                 self.month_result[self.range_date_date_format[i]]=count
         
-        self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
         #sort the dictionary
 
         test_oop=draw_graph(self.month_result)
         bar_graph=test_oop.draw_bar_graph()
         line_graph=test_oop.draw_line_graph()
         double_line_graph=test_oop.draw_2_line_graph()
-        pie_chart_test=1
-        pie_chart=test_oop.draw_pie_chart(pie_chart_test)
+        pie_chart=test_oop.draw_pie_chart()
         
         
 
