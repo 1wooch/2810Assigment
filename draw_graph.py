@@ -48,16 +48,17 @@ class draw_graph(object):
         plt.legend(loc="upper left")
         plt.show()
 
-    def draw_pie_chart(self,result_dictionary):
-        plt.title('Top 5 most accident day')
+    def draw_pie_chart(self,result_dictionary,start_date,end_date):
+        
+        start_date=str(start_date)
+        end_date=str(end_date) 
+        plt.title(label='Top 5 most accident \n From %s to %s' %(start_date,end_date) )
+        #plt.title('From ',start_date,' to ',end_date)
         #self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
         #sort the dictionary
-        print(result_dictionary)
 
         label_list=list(result_dictionary.keys())
         data_list=list(result_dictionary.values())
-        print(label_list)
-        print(data_list)
         
 
         data=np.array(data_list)

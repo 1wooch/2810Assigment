@@ -157,9 +157,9 @@ class basic_function(object):
             #print(data.groupby('OFFENCE_CODE')['OFFENCE_DESC'].count().reset_index(name='OFFENCE_DESC').sort_values(['OFFENCE_DESC'],ascending=False).head(5))
             test1=data.groupby('OFFENCE_DESC').size().sort_values(ascending=False) #if want offence code only then change 'OFFFENCE_DESC' into 'OFFENCE_CODE'
             test1=test1.iloc[0:5].to_dict()
-            print(test1)
+            #print(test1)
         test_oop=draw_graph(self.month_result)
-        double_line_graph=test_oop.draw_pie_chart(test1)
+        double_line_graph=test_oop.draw_pie_chart(test1,start_date,end_date)
 
 
 
