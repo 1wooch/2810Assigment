@@ -95,13 +95,21 @@ class basic_function(object):
         #------------------------------------------------------------------------------------------------------------------------
         if self.school_zone_bool==True:
             for i in range(len(self.range_date_date_format)):
+                count=0
                 month=self.range_date_date_format[i]
-                count=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')&(data['CAMERA_IND']=='Y')]).count()['OFFENCE_MONTH']
+                basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')])
+                for j in range(len(basic_data)):
+                    if(re.search("-\sCamera",str(basic_data['OFFENCE_DESC'].iloc[j]))):
+                        count+=1
                 camera_result[self.range_date_date_format[i]]=count
         else:
             for i in range(len(self.range_date_date_format)):
+                count=0
                 month=self.range_date_date_format[i]
-                count=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['CAMERA_IND']=='Y')]).count()['OFFENCE_MONTH']
+                basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])])
+                for j in range(len(basic_data)):
+                    if(re.search("-\sCamera",str(basic_data['OFFENCE_DESC'].iloc[j]))):
+                        count+=1
                 camera_result[self.range_date_date_format[i]]=count
         #-------------------------------------------------------------------------------------------------------------------------
         # Radar found
@@ -112,7 +120,7 @@ class basic_function(object):
                 month=self.range_date_date_format[i]
                 basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')])
                 for j in range(len(basic_data)):
-                    if(re.search("Radar$",str(basic_data['OFFENCE_DESC'].iloc[j]))):
+                    if(re.search("-\sRadar",str(basic_data['OFFENCE_DESC'].iloc[j]))):
                         count+=1
                 radar_result[self.range_date_date_format[i]]=count
         else:
@@ -121,11 +129,11 @@ class basic_function(object):
                 month=self.range_date_date_format[i]
                 basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])])
                 for j in range(len(basic_data)):
-                    if(re.search("Radar$",str(basic_data['OFFENCE_DESC'].iloc[j]))):
+                    if(re.search("-\sRadar",str(basic_data['OFFENCE_DESC'].iloc[j]))):
                         count+=1
                 radar_result[self.range_date_date_format[i]]=count
-        #print(radar_result)
-        #print(camera_result)
+        print(radar_result)
+        print(camera_result)
         #-------------------------------------------------------------------------------------------------------------------------
         test_oop=draw_graph(self.month_result)
         double_line_graph=test_oop.draw_2_line_graph(radar_result,camera_result)
@@ -176,10 +184,11 @@ class basic_function(object):
         #     print(offence_desc)
         #     final_result[offence_desc]=offence_code_value_5[i]
         # print(final_result.values())
+    def mobile_phone_usage(self):
+        print('something')
 
-
-start=basic_function('2012','01','2013','02',False)
-test = start.distribution_of_offence_code()
+start=basic_function('2012','01','2017','02',False)
+test = start.camera_or_radar()
 
 
 #https://www.entechin.com/how-to-import-a-class-from-another-file-in-python/ -> how to use other file class in OOP

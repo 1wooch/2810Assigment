@@ -49,7 +49,7 @@ class draw_graph(object):
         plt.show()
 
     def draw_pie_chart(self,result_dictionary,start_date,end_date):
-        
+        explode = [0, 0, 0, 0.1, 0.3]
         start_date=str(start_date)
         end_date=str(end_date) 
         plt.title(label='Top 5 most accident \n From %s to %s' %(start_date,end_date) )
@@ -63,7 +63,7 @@ class draw_graph(object):
 
         data=np.array(data_list)
         labels=np.array(label_list)
-        plt.pie(data_list,labels=label_list)
+        plt.pie(data_list,labels=label_list,explode=explode)
         plt.show()
 
 
