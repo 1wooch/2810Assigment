@@ -135,36 +135,49 @@ class basic_function(object):
         result=0
         unique_Offence_code_count={}
         self.get_date_range()
-
+        result={}
+        final_result={}
         data=pandas.read_csv('data.csv')
         data['OFFENCE_MONTH']=pandas.to_datetime(data['OFFENCE_MONTH'])
         data=pd.DataFrame(data)
         unique_Offence_code=list(data['OFFENCE_CODE'].unique())
         
-        #print(type(unique_Offence_code)) #<class 'numpy.ndarray'>
-        #print(len(unique_Offence_code))
         start_date=self.range_date_date_format[0]
         end_date=self.range_date_date_format[-1]
-
-        print(start_date)
-        print(end_date)
-
-        data[data['OFFENCE_MONTH'].between(start_date,end_date)]
-        print(data.groupby('OFFENCE_CODE').count())
-        result={}
         if self.school_zone_bool==True:
-            for i in range(len(self.range_date_date_format)):
-                count=0
-                month=self.range_date_date_format[i]
-                basic_data=pd.DataFrame(data[data['SCHOOL_ZONE_IND']=='Y'])
-                for j in range(len(basic_data)):
-                    for z in range(len(unique_Offence_code)):
-                        if(basic_data['OFFENCE_CODE'].iloc[i]==unique_Offence_code[z]):
-                            count+=1
-                        result[unique_Offence_code[z]]=count
-        print(result)
-                
-start=basic_function('2012','01','2013','02',True)
+            data=pd.DataFrame(data[data['SCHOOL_ZONE_IND']=='Y'])
+
+            data=data[data['OFFENCE_MONTH'].between(start_date,end_date)]
+            #print(data.groupby('OFFENCE_CODE')['OFFENCE_DESC'].count().reset_index(name='OFFENCE_DESC').sort_values(['OFFENCE_DESC'],ascending=False).head(5))
+            test1=data.groupby('OFFENCE_DESC').size().sort_values(ascending=False)
+            test1=test1.iloc[0:5].to_dict()
+            print(test1)
+        else:
+            data=data[data['OFFENCE_MONTH'].between(start_date,end_date)]
+            #print(data.groupby('OFFENCE_CODE')['OFFENCE_DESC'].count().reset_index(name='OFFENCE_DESC').sort_values(['OFFENCE_DESC'],ascending=False).head(5))
+            test1=data.groupby('OFFENCE_DESC').size().sort_values(ascending=False)
+            test1=test1.iloc[0:5].to_dict()
+            print(test1)
+
+
+
+
+
+        #group by Offence_code
+        #---------------------------------------------------------------------------------
+        # offence_code_top_5=list(test1.keys())
+        # offence_code_value_5=list(test1.values())
+        # for i in range(len(offence_code_top_5)):
+        #     #print(offence_code_top_5[i])
+        #     print(offence_code_value_5[i])
+        #     offence_desc=data.loc[data['OFFENCE_CODE']==offence_code_top_5[i]]
+        #     offence_desc=offence_desc['OFFENCE_DESC'].iloc[0]
+        #     print(offence_desc)
+        #     final_result[offence_desc]=offence_code_value_5[i]
+        # print(final_result.values())
+
+
+start=basic_function('2012','01','2013','02',False)
 test = start.distribution_of_offence_code()
 
 
