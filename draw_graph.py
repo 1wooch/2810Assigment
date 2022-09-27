@@ -44,6 +44,7 @@ class draw_graph(object):
         second_data=np.array(list(second_data.values())).astype(np.double)
         plt.plot(labels,first_data,linestyle='-',marker='o',label="Radar")
         plt.plot(labels,second_data,linestyle='-',marker='o',label="Camera")
+        plt.legend(loc="upper left")
         plt.show()
 
     def draw_pie_chart(self):

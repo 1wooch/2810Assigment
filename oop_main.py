@@ -1,6 +1,7 @@
 from calendar import month
 from cgitb import reset
 from datetime import datetime
+from enum import unique
 from itertools import count
 from operator import truediv
 from tracemalloc import start
@@ -106,22 +107,20 @@ class basic_function(object):
         # Radar found
         #-------------------------------------------------------------------------------------------------------------------------
         if self.school_zone_bool==True:
-            count=0
             for i in range(len(self.range_date_date_format)):
+                count=0
                 month=self.range_date_date_format[i]
                 basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])&(data['SCHOOL_ZONE_IND']=='Y')])
                 for j in range(len(basic_data)):
-                    #print(test1['OFFENCE_DESC'].iloc[j])  
                     if(re.search("Radar$",str(basic_data['OFFENCE_DESC'].iloc[j]))):
                         count+=1
                 radar_result[self.range_date_date_format[i]]=count
         else:
-            count=0
             for i in range(len(self.range_date_date_format)):
+                count=0
                 month=self.range_date_date_format[i]
                 basic_data=pd.DataFrame(data[(data['OFFENCE_MONTH']==self.range_date_date_format[i])])
                 for j in range(len(basic_data)):
-                    #print(test1['OFFENCE_DESC'].iloc[j])  
                     if(re.search("Radar$",str(basic_data['OFFENCE_DESC'].iloc[j]))):
                         count+=1
                 radar_result[self.range_date_date_format[i]]=count
@@ -131,7 +130,42 @@ class basic_function(object):
         test_oop=draw_graph(self.month_result)
         double_line_graph=test_oop.draw_2_line_graph(radar_result,camera_result)
 
+
+    def distribution_of_offence_code(self):
+        result=0
+        unique_Offence_code_count={}
+        self.get_date_range()
+
+        data=pandas.read_csv('data.csv')
+        data['OFFENCE_MONTH']=pandas.to_datetime(data['OFFENCE_MONTH'])
+        data=pd.DataFrame(data)
+        unique_Offence_code=list(data['OFFENCE_CODE'].unique())
+        
+        #print(type(unique_Offence_code)) #<class 'numpy.ndarray'>
+        #print(len(unique_Offence_code))
+        start_date=self.range_date_date_format[0]
+        end_date=self.range_date_date_format[-1]
+
+        print(start_date)
+        print(end_date)
+
+        data[data['OFFENCE_MONTH'].between(start_date,end_date)]
+        print(data.groupby('OFFENCE_CODE').count())
+        result={}
+        if self.school_zone_bool==True:
+            for i in range(len(self.range_date_date_format)):
+                count=0
+                month=self.range_date_date_format[i]
+                basic_data=pd.DataFrame(data[data['SCHOOL_ZONE_IND']=='Y'])
+                for j in range(len(basic_data)):
+                    for z in range(len(unique_Offence_code)):
+                        if(basic_data['OFFENCE_CODE'].iloc[i]==unique_Offence_code[z]):
+                            count+=1
+                        result[unique_Offence_code[z]]=count
+        print(result)
+                
 start=basic_function('2012','01','2013','02',True)
-test = start.camera_or_radar()
+test = start.distribution_of_offence_code()
+
 
 #https://www.entechin.com/how-to-import-a-class-from-another-file-in-python/ -> how to use other file class in OOP
