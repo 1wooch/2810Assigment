@@ -79,6 +79,5 @@ class basic_function(object):
 
 start=basic_function('2012','01','2013','02',False)
 test = start.date_and_school()
-print (type(test))
 
 #https://www.entechin.com/how-to-import-a-class-from-another-file-in-python/ -> how to use other file class in OOP

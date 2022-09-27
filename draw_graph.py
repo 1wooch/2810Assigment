@@ -34,6 +34,8 @@ class draw_graph(object):
         plt.plot(labels,y,linestyle='-',marker='o')
         plt.show()
     def draw_2_line_graph(self): #for radar or camera
+        plt.title(' radar or camera')
+
         labels=np.array(list(self.month_result.keys()))
         first_data=np.array(list(self.month_result.values())).astype(np.double)
         second_data=np.array([2, None, 5, None, 4, None, 3, 2]).astype(np.double)
@@ -41,8 +43,9 @@ class draw_graph(object):
         plt.plot(labels,first_data,linestyle='-',marker='o')
         plt.show()
     def draw_pie_chart(self):
+        plt.title('Top 5 most accident day')
         self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
-
+        #sort the dictionary
         self.month_result=self.month_result[0:5]#list
 
         label_list=[]
