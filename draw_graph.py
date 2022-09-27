@@ -3,6 +3,7 @@ from datetime import datetime
 from itertools import count
 from operator import truediv
 from tracemalloc import start
+from unittest import result
 import pandas
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,18 +48,17 @@ class draw_graph(object):
         plt.legend(loc="upper left")
         plt.show()
 
-    def draw_pie_chart(self):
+    def draw_pie_chart(self,result_dictionary):
         plt.title('Top 5 most accident day')
-        self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
+        #self.month_result=sorted(self.month_result.items(),key=lambda x:x[1],reverse=True)
         #sort the dictionary
-        self.month_result=self.month_result[0:5]#list
+        print(result_dictionary)
 
-        label_list=[]
-        data_list=[]
-        for i in range(len(self.month_result)):
-            print(self.month_result[i])
-            label_list.append(self.month_result[i][0])
-            data_list.append(self.month_result[i][1])
+        label_list=list(result_dictionary.keys())
+        data_list=list(result_dictionary.values())
+        print(label_list)
+        print(data_list)
+        
 
         data=np.array(data_list)
         labels=np.array(label_list)
