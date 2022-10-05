@@ -66,5 +66,3 @@ class draw_graph(object):
         plt.pie(data_list,labels=label_list,explode=explode)
         plt.show()
 
-
-

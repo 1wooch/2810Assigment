@@ -132,11 +132,12 @@ class basic_function(object):
                     if(re.search("-\sRadar",str(basic_data['OFFENCE_DESC'].iloc[j]))):
                         count+=1
                 radar_result[self.range_date_date_format[i]]=count
-        print(radar_result)
-        print(camera_result)
+        #print(radar_result)
+        #print(camera_result)
         #-------------------------------------------------------------------------------------------------------------------------
         test_oop=draw_graph(self.month_result)
-        double_line_graph=test_oop.draw_2_line_graph(radar_result,camera_result)
+        camera_graph=draw_graph.draw_line_graph(camera_result)
+        radar_graph=draw_graph.draw_line_graph(radar_result)
 
 
     def distribution_of_offence_code(self):
